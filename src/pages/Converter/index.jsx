@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import FormInput from "../../components/FormInput";
+import useWalletInfo from "../../hooks/useWalletInfo";
 
 const Converter = ({ handleShow }) => {
   const [amount, setAmount] = useState(1);
   const [amountNPR, setAmountNPR] = useState(true);
+
+  const { isActive } = useWalletInfo();
 
   let nprAmount, busdAmount;
   let BUSD = 3;
@@ -63,9 +66,15 @@ const Converter = ({ handleShow }) => {
           />
         </Form>
 
-        <Button variant="primary" onClick={handleShow}>
-          Connect to Wallet
-        </Button>
+        <div className="wallet_wrapper">
+          <Button variant="primary" onClick={handleShow}>
+            Open Wallet
+          </Button>
+          <div className="wallet_info">
+            <div className={isActive ? "activeIcon" : "inactiveicon"}></div>
+            {isActive ? <p> Connected</p> : <p>Disconnected</p>}
+          </div>
+        </div>
       </div>
       {/* end conveter_form */}
     </div>

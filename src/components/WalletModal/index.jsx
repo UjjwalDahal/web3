@@ -1,12 +1,16 @@
 import React from "react";
 import { Modal, Button } from "react-bootstrap";
-import { InjectedConnector } from "@web3-react/injected-connector";
 
-const injected = new InjectedConnector({
-  supportedChainIds: [56, 97],
-});
-
-const WalletModal = ({ show, handleClose, handleShow }) => {
+const WalletModal = ({
+  show,
+  handleClose,
+  connectWallet,
+  disconnectWallet,
+  balance,
+  accInfo,
+  chainID,
+  isActive,
+}) => {
   return (
     <>
       <Modal
@@ -17,17 +21,40 @@ const WalletModal = ({ show, handleClose, handleShow }) => {
         centered
       >
         <Modal.Header closeButton>
-          <Modal.Title>Modal title</Modal.Title>
+          <Modal.Title>Wallet Information</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          I will not close if you click outside me. Don't even try to press
-          escape key.
+          {!isActive ? (
+            <>Please connect to MetaMask</>
+          ) : (
+            <>
+              <div className="wallet_modal">
+                <div className="wallet_row">
+                  <p>Account Information:</p>
+                  <p>{String(accInfo).substring(0, 9)}</p>
+                </div>
+                <div className="wallet_row">
+                  <p>Chain ID:</p>
+                  <p>{chainID}</p>
+                </div>
+                <div className="wallet_row">
+                  <p>Balance:</p>
+                  <p>{balance || "-"}</p>
+                </div>
+              </div>
+            </>
+          )}
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary">Understood</Button>
+          {isActive ? (
+            <Button variant="danger" onClick={disconnectWallet}>
+              Disconnect
+            </Button>
+          ) : (
+            <Button variant="primary" onClick={connectWallet}>
+              Connect
+            </Button>
+          )}
         </Modal.Footer>
       </Modal>
     </>

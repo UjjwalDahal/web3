@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import WalletModal from "./components/WalletModal";
 import Converter from "./pages/Converter";
 
 import { Web3ReactProvider } from "@web3-react/core";
 import { Web3Provider } from "@ethersproject/providers";
+import Wallet from "./pages/Wallet";
 
-function getLibrary(provider, connector) {
+function getLibrary(provider) {
   return new Web3Provider(provider);
 }
 
@@ -16,7 +16,7 @@ const App = () => {
   const handleShow = () => setShow(true);
   return (
     <Web3ReactProvider getLibrary={getLibrary}>
-      <WalletModal show={show} handleClose={handleClose} />
+      <Wallet show={show} handleClose={handleClose} />
       <Converter handleShow={handleShow} />
     </Web3ReactProvider>
   );
