@@ -38,7 +38,6 @@ const useWalletInfo = () => {
   // get user native token balance
   const getUserBalance = async () => {
     library?.getBalance(account).then((result) => {
-      console.log(result, "result");
       setBalance(result / 1e18);
     });
   };
