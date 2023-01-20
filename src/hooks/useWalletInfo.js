@@ -12,6 +12,13 @@ const useWalletInfo = () => {
   const { account, chainId, activate, active, library, deactivate } =
     useWeb3React();
 
+  // get user native token balance
+  const getUserBalance = async () => {
+    library?.getBalance(account).then((result) => {
+      setBalance(result / 1e18);
+    });
+  };
+
   // set state from fetched information from wallet
   useEffect(() => {
     if (chainId) {
@@ -34,13 +41,6 @@ const useWalletInfo = () => {
   //       activate(injected, undefined, true);
   //     });
   //   }, [activate]);
-
-  // get user native token balance
-  const getUserBalance = async () => {
-    library?.getBalance(account).then((result) => {
-      setBalance(result / 1e18);
-    });
-  };
 
   return {
     chainID,

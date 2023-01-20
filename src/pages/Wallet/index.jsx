@@ -19,7 +19,7 @@ const Wallet = ({ show, handleClose }) => {
   // disconnect metamask wallet
   const disconnectWallet = async () => {
     try {
-      deactivate(-1);
+      deactivate();
     } catch (error) {
       console.log(error);
     }
